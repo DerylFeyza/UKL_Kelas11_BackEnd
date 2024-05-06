@@ -8,5 +8,6 @@ app.get("/all", foodController.getAll);
 app.get("/:search", foodController.searchFood);
 app.put("/:id", auth.authVerify, foodController.updateFood);
 app.delete("/:id", auth.authVerify, foodController.deleteFood);
+app.get("/image/:filename", foodController.getFoodImage);
 
 module.exports = app;

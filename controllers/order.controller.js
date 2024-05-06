@@ -50,24 +50,15 @@ exports.customerOrder = async (req, res) => {
 
 exports.getOrderHistory = async (req, res) => {
 	try {
-		const orderData = await prisma.order_list.findMany();
-		const ordersWithDetails = [];
+		const orderData = await prisma.order_list.findMany({
+			include: {
+				order_detail: true,
+			},
+		});
 
-		for (const order of orderData) {
-			const orderDetails = await prisma.order_detail.findMany({
-				where: {
-					order_id: order.id,
-				},
-			});
-
-			ordersWithDetails.push({
-				order: order,
-				order_details: orderDetails,
-			});
-		}
 		return res.json({
 			status: true,
-			data: ordersWithDetails,
+			data: orderData,
 			message: "Order list has been retrieved",
 		});
 	} catch (error) {

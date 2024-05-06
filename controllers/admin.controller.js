@@ -15,7 +15,7 @@ exports.authentication = async (req, res) => {
 
 		if (!user) {
 			return res.json({
-				success: false,
+				status: false,
 				message: "Email or password doesn't match",
 			});
 		}
@@ -23,7 +23,7 @@ exports.authentication = async (req, res) => {
 		const valid = await bcrypt.compare(userData.password, user.password);
 		if (!valid) {
 			return res.json({
-				success: false,
+				status: false,
 				message: "Email or password doesn't match",
 			});
 		}

@@ -142,6 +142,12 @@ exports.deleteFood = async (req, res) => {
 		if (fs.existsSync(pathPhoto)) {
 			fs.unlink(pathPhoto, (error) => console.log(error));
 		}
+
+		await prisma.order_detail.updateMany({
+			where: { id },
+			data: { food_id: null },
+		});
+
 		const deletedFood = await prisma.food.delete({
 			where: { id: id },
 		});
@@ -155,4 +161,15 @@ exports.deleteFood = async (req, res) => {
 			message: error.message,
 		});
 	}
+};
+
+exports.getFoodImage = (req, res) => {
+	const filename = req.params.filename;
+	const filePath = path.join(__dirname, "../fotomakanan", filename);
+	res.sendFile(filePath, (err) => {
+		if (err) {
+			console.error(err);
+			res.status(500).json({ error: "Server Error" });
+		}
+	});
 };
