@@ -26,7 +26,7 @@ exports.addFood = async (req, res) => {
 				data: foodData,
 			});
 			return res.json({
-				success: true,
+				status: true,
 				message: "new food has been inserted",
 				data: newOrder,
 			});
@@ -101,7 +101,9 @@ exports.updateFood = async (req, res) => {
 				spicy_level: req.body.spicy_level
 					? req.body.spicy_level
 					: unupdatedFood.spicy_level,
-				price: req.body.price ? req.body.price : unupdatedFood.price,
+				price: parseFloat(req.body.price)
+					? parseFloat(req.body.price)
+					: unupdatedFood.price,
 				image: req.file ? req.file.filename : unupdatedFood.image,
 			};
 

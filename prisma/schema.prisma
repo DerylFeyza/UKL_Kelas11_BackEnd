@@ -47,8 +47,8 @@ model order_detail {
   id        Int        @id @default(autoincrement())
   order     order_list @relation(fields: [order_id], references: [id])
   order_id  Int
-  food      food       @relation(fields: [food_id], references: [id])
-  food_id   Int
+  food      food?      @relation(fields: [food_id], references: [id])
+  food_id   Int?
   quantity  Int
   price     Float
   createdAt DateTime   @default(now())
