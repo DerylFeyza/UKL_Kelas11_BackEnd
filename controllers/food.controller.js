@@ -63,7 +63,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.searchFood = async (req, res) => {
-	const keyword = req.params.search;
+	const keyword = req.query.search;
 	try {
 		const products = await prisma.food.findMany({
 			where: { name: { contains: keyword } },
